@@ -140,9 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ac588e7f3ac524ba31d0261cb20f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 300
+  PlayerManager: []
+  Speed: 0
   SteerVal: 700
-  JumpVal: 700
+  body: {fileID: 7094585703078803318, guid: e606bf7912d55884d81fecd06fb8f56c, type: 3}
   rb: {fileID: 0}
 --- !u!4 &366930637 stripped
 Transform:
@@ -430,7 +431,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767730790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.05, z: 500}
+  m_LocalPosition: {x: 0, y: -0.05, z: 455}
   m_LocalScale: {x: 7, y: 0.1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -674,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6144037545470432349, guid: 606c1c8f19a569746a44c719d7fcb676, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.01
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6144037545470432349, guid: 606c1c8f19a569746a44c719d7fcb676, type: 3}
       propertyPath: m_LocalRotation.w
