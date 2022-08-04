@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ac588e7f3ac524ba31d0261cb20f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: []
-  Speed: 0
+  PlayerList: []
+  Speed: 300
   SteerVal: 700
   body: {fileID: 7094585703078803318, guid: e606bf7912d55884d81fecd06fb8f56c, type: 3}
   rb: {fileID: 0}
