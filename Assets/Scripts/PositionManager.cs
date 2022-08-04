@@ -3,48 +3,36 @@ using UnityEngine;
 
 public class PositionManager : MonoBehaviour
 {
-    //============================================================================================================
-    // Marker Takes The Position And Rotations
-    //============================================================================================================
-    public class Marker
-    {
-        public Vector3 position;
-        public Quaternion rotation;
+    //=====================================================================================================
+    // Initializations
+    //=====================================================================================================
+    [SerializeField] GameObject[] PositionList;
+    [SerializeField] float GapBetween = 2;
+    //=====================================================================================================
 
-        public Marker(Vector3 pos, Quaternion rot)
-        {
-            position = pos;
-            rotation = rot;
-        }
-    }
-
-    //============================================================================================================
-    // List MarkerManager(Stores Position And Rotations Of The Player Body)
-    //============================================================================================================
-    public List<Marker> markerList = new List<Marker>();
-
-    //============================================================================================================
-    // Triggers On Every Farames in The Game
-    //============================================================================================================
+    //=====================================================================================================
+    // Fixed Call In Every Devices
+    //=====================================================================================================
     void FixedUpdate()
     {
-        UpdateMarkerList();
+        PosiManager();
     }
+    //=====================================================================================================
 
-    //============================================================================================================
-    // Updates The Body Positions And Rotations in The List
-    //============================================================================================================
-    public void UpdateMarkerList()
+    //=====================================================================================================
+    // Manages Positions
+    //=====================================================================================================
+    public void PosiManager()
     {
-        markerList.Add(new Marker(transform.position, transform.rotation));
-    }
+        PositionList = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log("Hi Jainish" + PositionList.Length);
 
-    //============================================================================================================
-    // Clears List Of The Body Positions And Rotations
-    //============================================================================================================
-    public void ClearMarkerList()
-    {
-        markerList.Clear();
-        markerList.Add(new Marker(transform.position, transform.rotation));
+        for (int i = 1; i < PositionList.Length; i++)
+        {
+            PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(0, 0, GapBetween);
+            PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
+            // Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
+        }
     }
+    //=====================================================================================================
 }
