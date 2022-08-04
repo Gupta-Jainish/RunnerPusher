@@ -9,6 +9,7 @@ public class PositionManager : MonoBehaviour
     [SerializeField] GameObject[] PositionList;
     [SerializeField] float GapBetween = 2;
     [SerializeField] float RightGap = 2;
+
     bool up = false;
 
     //=====================================================================================================
@@ -41,6 +42,7 @@ public class PositionManager : MonoBehaviour
                     //=====================================================================================================
                     case 0:
                         {
+
                             // Cheacks If It Is First Pics Or Not
                             if (i == 0)
                             {
@@ -100,8 +102,7 @@ public class PositionManager : MonoBehaviour
                     // For Center Pics
                     //=====================================================================================================
                     case 0:
-                        {
-                            // Cheacks If It Is First Pics Or Not
+                        {// Cheacks If It Is First Pics Or Not
                             if (i == 0)
                             {
                                 PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(0, 0, GapBetween);
@@ -114,12 +115,16 @@ public class PositionManager : MonoBehaviour
                             }
                             else
                             {
-                                PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, -2,0);
-                                PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                                Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                                PositionList[i].transform.LookAt(point);
-                                PositionList[i].GetComponent<Rigidbody>().useGravity = false;
+                                
+                                    PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, -2, 0);
+                                    PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
+                                    Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
+                                    PositionList[i].transform.LookAt(point);
+                                    PositionList[i].GetComponent<Rigidbody>().useGravity = false;
+
                             }
+                            
+                           
                             break;
 
                         }
