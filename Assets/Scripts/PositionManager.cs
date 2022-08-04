@@ -12,11 +12,6 @@ public class PositionManager : MonoBehaviour
 
     //=====================================================================================================
 
-    private void Start()
-    {
-        
-    }
-
     //=====================================================================================================
     // Fixed Call In Every Devices
     //=====================================================================================================
@@ -32,16 +27,18 @@ public class PositionManager : MonoBehaviour
     public void PosiManager()
     {
         PositionList = GameObject.FindGameObjectsWithTag("Player");
-        
-
         for (int i = 1; i < PositionList.Length; i++)
         {
             mod = i % 3;
 
             switch (mod)
             {
+                //=====================================================================================================
+                // For Center Pics
+                //=====================================================================================================
                 case 0:
                     {
+                        // Cheacks If It Is First Pics Or Not
                         if (i==0)
                         {
                             PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(0, 0, GapBetween);
@@ -60,6 +57,11 @@ public class PositionManager : MonoBehaviour
                         break;
                         
                     }
+                //=====================================================================================================    
+
+                //=====================================================================================================
+                // For Left Pics
+                //=====================================================================================================
                 case 1:
                     {
                         PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, 0,0);
@@ -68,6 +70,11 @@ public class PositionManager : MonoBehaviour
                         PositionList[i].transform.LookAt(point);
                         break;
                     }
+                //=====================================================================================================    
+
+                //=====================================================================================================
+                // For Right Pics
+                //=====================================================================================================
                 case 2:
                     {
                         PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(2*(RightGap), 0,0);
@@ -76,15 +83,17 @@ public class PositionManager : MonoBehaviour
                         PositionList[i].transform.LookAt(point);
                         break;
                     }
+                //=====================================================================================================
 
             }
 
-            PositionList[i].transform.rotation = new Quaternion(0,0,0,0);
-       
-                
-            
+            //=====================================================================================================
+            // Sets Rotations Uniform And Front Towards Z Axis Of All The Pics
+            //=====================================================================================================
+            PositionList[i].transform.rotation = new Quaternion(0, 0, 0, 0);
+            //=====================================================================================================
 
-            
+
         }
     }
     //=====================================================================================================
