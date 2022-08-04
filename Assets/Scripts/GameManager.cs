@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     // Initializations
     //=====================================================================================================
     [SerializeField] List<GameObject> Storage = new List<GameObject>();
+    [SerializeField] GameObject[] CubeList;
     [SerializeField] GameObject tomato;
     //=====================================================================================================
 
@@ -16,9 +17,7 @@ public class GameManager : MonoBehaviour
     //=====================================================================================================
     void Start()
     {
-        AddIntoStorage(tomato);
-        AddIntoStorage(tomato);
-        AddIntoStorage(tomato);
+        AddTomato();
     }
     //=====================================================================================================
     // Fixed Call In Every Devices
@@ -26,6 +25,9 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         Initiator();
+        AddPlayerMovement();
+
+        
     }
     //=====================================================================================================
 
@@ -50,5 +52,31 @@ public class GameManager : MonoBehaviour
             Storage.RemoveAt(0);
         }
     }
+
+    public void AddTomato()
+    {
+        AddIntoStorage(tomato);
+    }
     //=====================================================================================================
+
+    public void AddPlayerMovement()
+    {
+        
+            CubeList = GameObject.FindGameObjectsWithTag("Player");
+            if (CubeList.Length > 0)
+            {
+                if (!CubeList[0].GetComponent<PlayerMovement>())
+                {
+                    CubeList[0].AddComponent<PlayerMovement>();
+                }
+            }
+        if (CubeList.Length > 0)
+        {
+            if (!CubeList[0].GetComponent<PlayerMovement>())
+            {
+                CubeList[0].AddComponent<PlayerMovement>();
+            }
+        }
+
+    }
 }
