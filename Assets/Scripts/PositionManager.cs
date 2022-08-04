@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MarkerManager : MonoBehaviour
+public class PositionManager : MonoBehaviour
 {
     //============================================================================================================
     // Marker Takes The Position And Rotations
@@ -19,11 +19,9 @@ public class MarkerManager : MonoBehaviour
     }
 
     //============================================================================================================
-    // List MarkerManager(Stores Position And Rotations Of The Snake Body)
+    // List MarkerManager(Stores Position And Rotations Of The Player Body)
     //============================================================================================================
     public List<Marker> markerList = new List<Marker>();
-
-
 
     //============================================================================================================
     // Triggers On Every Farames in The Game

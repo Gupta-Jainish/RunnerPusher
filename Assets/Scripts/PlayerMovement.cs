@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     //=====================================================================================================
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        RigidIni();
     }
 
     //=====================================================================================================
@@ -26,11 +26,24 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerController();
     }
+
+    //=====================================================================================================
+    // Fixed Call In Every Devices
+    //=====================================================================================================
     void FixedUpdate()
     {
         PlayerMovementUpdate();
     }
 
+    public void RigidIni()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotationY;
+    }
+
+    //=====================================================================================================
+    // Input Manager
+    //=====================================================================================================
     public void PlayerController()
     {
 
@@ -43,16 +56,24 @@ public class PlayerMovement : MonoBehaviour
             Right();
         }
     }
+
+    //=====================================================================================================
+    // Forward Movement
+    //=====================================================================================================
     public void PlayerMovementUpdate()
     {
         rb.velocity = transform.forward * Speed * Time.deltaTime;
     }
-    public void Right()
-    {
-        rb.AddForce(SteerVal, 0, 0);
-    }
+
+    //=====================================================================================================
+    // Left And Right Controlls
+    //=====================================================================================================
     public void Left()
     {
         rb.AddForce(-SteerVal, 0, 0);
+    }
+    public void Right()
+    {
+        rb.AddForce(SteerVal, 0, 0);
     }
 }
