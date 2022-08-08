@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     // Initializations
     //=====================================================================================================
     [SerializeField] float Speed = 500;
-    [SerializeField] float SteerVal = 700;
+    [SerializeField] float SteerVal = 800;
     [SerializeField] float TouchRightVal = 0.6f;
     Rigidbody rb;
     //=====================================================================================================
@@ -55,14 +55,14 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerMovementUpdate()
     {
         rb.velocity = transform.forward * Speed * Time.deltaTime;
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             TouchRightVal = touch.deltaPosition.x;
             transform.position += transform.right * TouchRightVal * Time.deltaTime / 3;
-            
+
         }
+
     }
     //=====================================================================================================
 
