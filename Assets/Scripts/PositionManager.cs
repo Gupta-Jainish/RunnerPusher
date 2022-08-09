@@ -120,12 +120,12 @@ public class PositionManager : MonoBehaviour
             for (int i = 1; i < Live_BodyList.Count; i++)
             {
                 
-                if (i>=1)
+                if (i > 1 || i == 1)
                 {
                     RotationLock();
                     MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
                     Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(0,0,1);
-                    //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                     Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
                     Live_BodyList[i].transform.LookAt(point);
                     markM.markerList.RemoveAt(0);
