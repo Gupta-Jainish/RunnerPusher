@@ -6,6 +6,8 @@ public class Trigger_Player : MonoBehaviour
     // Refrence To GameManager Object For Refrencing To GameManager Script
     //=====================================================================================================
     public GameObject GameManager;
+
+    bool collectibleOnetime = true;
     //=====================================================================================================
 
     //=====================================================================================================
@@ -15,10 +17,15 @@ public class Trigger_Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            if (collectibleOnetime)
+            {
+                Destroy(gameObject);
+                // Fetching GameManager Scrit From GameManager Object
+                GameManager.GetComponent<PositionManager>().AddParts();
 
-            // Fetching GameManager Scrit From GameManager Object
-              GameManager.GetComponent<PositionManager>().AddParts();
+                collectibleOnetime = false;
+            }
+            
         }
     }
     //=====================================================================================================

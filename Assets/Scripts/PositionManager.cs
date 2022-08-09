@@ -9,6 +9,9 @@ public class PositionManager : MonoBehaviour
     [SerializeField] List<GameObject> Sec_BodyList = new List<GameObject>();
     [SerializeField] GameObject BodyPrefab;
     int mod;
+    int Bodycount;
+
+    int ModFinal;
 
     float countup = 0;
     //=====================================================================================================
@@ -171,6 +174,54 @@ public class PositionManager : MonoBehaviour
                 Live_BodyList[i].transform.rotation = new Quaternion(0, 0, 0, 0);
             }
         }
+    }
+
+
+    public void Finisher()
+    {
+        Bodycount = Live_BodyList.Count;
+        if (Bodycount > 3)
+        {
+            
+
+            ModFinal = (Bodycount - 1) % 3;
+
+            Debug.Log(ModFinal);
+            switch (ModFinal)
+            {
+                case 0:
+                    {
+                        for (int i = Bodycount - 1; i > Bodycount - 4; i--)
+                        {
+                            Live_BodyList.RemoveAt(i);
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        for (int i = Bodycount - 1; i > Bodycount - 2; i--)
+                        {
+                            Live_BodyList.RemoveAt(i);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = Bodycount - 1; i > Bodycount - 3; i--)
+                        {
+                            Live_BodyList.RemoveAt(i);
+                        }
+                        break;
+                    }
+            }
+        }
+
+        if (Bodycount <= 3)
+        {
+            
+            Debug.Log("Body <= 3");
+        }
+        
     }
 
 }
