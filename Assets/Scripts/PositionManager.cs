@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 public class PositionManager : MonoBehaviour
 {
     //=====================================================================================================
@@ -8,8 +8,9 @@ public class PositionManager : MonoBehaviour
     [SerializeField] List<GameObject> Live_BodyList = new List<GameObject>();
     [SerializeField] List<GameObject> Sec_BodyList = new List<GameObject>();
     [SerializeField] GameObject BodyPrefab;
- // [SerializeField] float GapBetween = 0;
- // [SerializeField] float RightGap = 0;
+    [SerializeField] float RightGap = 0;
+    int counter = 1;
+    int mod;
 
     float countup = 0;
     //=====================================================================================================
@@ -80,9 +81,7 @@ public class PositionManager : MonoBehaviour
             markM.ClearMarkerList();
         }
         countup += Time.deltaTime;
-
         GameObject temp = Instantiate(Sec_BodyList[0], markM.markerList[0].position, markM.markerList[0].rotation, transform);
-
         if (!temp.GetComponent<MarkerManager>())
         {
             temp.AddComponent<MarkerManager>();
@@ -119,16 +118,50 @@ public class PositionManager : MonoBehaviour
         {
             for (int i = 1; i < Live_BodyList.Count; i++)
             {
-                
+
                 if (i > 1 || i == 1)
                 {
                     RotationLock();
-                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(0,0,1);
-                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
-                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
-                    Live_BodyList[i].transform.LookAt(point);
-                    markM.markerList.RemoveAt(0);
+
+                    if (counter >= 1)
+                    {
+                        mod = counter % 3;
+                        switch (mod)
+                        {
+                            case 0:
+                                {
+                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 1);
+                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    markM.markerList.RemoveAt(0);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
+                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    markM.markerList.RemoveAt(0);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(2, 0, 0);
+                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    markM.markerList.RemoveAt(0);
+                                    break;
+                                }
+
+                        }
+                    }
+                    counter++;
                 }
             }
         }
