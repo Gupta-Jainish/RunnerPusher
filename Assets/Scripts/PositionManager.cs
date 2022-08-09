@@ -8,16 +8,16 @@ public class PositionManager : MonoBehaviour
     [SerializeField] List<GameObject> Live_BodyList = new List<GameObject>();
     [SerializeField] List<GameObject> Sec_BodyList = new List<GameObject>();
     [SerializeField] GameObject BodyPrefab;
-   // [SerializeField] float GapBetween = 0;
-   // [SerializeField] float RightGap = 0;
+ // [SerializeField] float GapBetween = 0;
+ // [SerializeField] float RightGap = 0;
 
     float countup = 0;
     //=====================================================================================================
 
     private void Start()
     {
-        AddBodyParts();
-        AddBodyParts();
+        AddParts();
+        AddParts();
     }
 
     //=====================================================================================================
@@ -26,25 +26,15 @@ public class PositionManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        ManageBody();
         Movement();
-        ManageSnakeBody();
-
-        if (Live_BodyList.Count > 0)
-        {
-            if (!Live_BodyList[0].GetComponent<PlayerMovement>())
-            {
-                Live_BodyList[0].AddComponent<PlayerMovement>();
-            }
-        }
-        
-
     }
     //=====================================================================================================
 
     //=====================================================================================================
     // Manages Positions
     //=====================================================================================================
-    void ManageSnakeBody()
+    void ManageBody()
     {
         if (Sec_BodyList.Count > 0)
         {
@@ -105,21 +95,34 @@ public class PositionManager : MonoBehaviour
         Sec_BodyList.RemoveAt(0);
         temp.GetComponent<MarkerManager>().ClearMarkerList();
         countup = 0;
+
     }
 
-    public void AddBodyParts()
+    public void AddParts()
     {
         Sec_BodyList.Add(BodyPrefab);
     }
 
     public void Movement()
     {
+
+        if (Live_BodyList.Count > 0)
+        {
+            if (!Live_BodyList[0].GetComponent<PlayerMovement>())
+            {
+                Live_BodyList[0].AddComponent<PlayerMovement>();
+            }
+        }
+
+
         if (Live_BodyList.Count > 1)
         {
             for (int i = 1; i < Live_BodyList.Count; i++)
             {
+                
                 if (i>=1)
                 {
+                    RotationLock();
                     MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
                     Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(0,0,1);
                     //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
@@ -127,6 +130,17 @@ public class PositionManager : MonoBehaviour
                     Live_BodyList[i].transform.LookAt(point);
                     markM.markerList.RemoveAt(0);
                 }
+            }
+        }
+    }
+
+    public void RotationLock()
+    {
+        if (Live_BodyList.Count >= 1)
+        {
+            for (int i = 0; i < Live_BodyList.Count; i++)
+            {
+                Live_BodyList[i].transform.rotation = new Quaternion(0, 0, 0, 0);
             }
         }
     }
