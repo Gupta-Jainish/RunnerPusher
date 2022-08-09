@@ -18,7 +18,7 @@ public class Trigger_Player : MonoBehaviour
             Destroy(gameObject);
 
             // Fetching GameManager Scrit From GameManager Object
-            GameManager.GetComponent<GameManager>().AddTomato();
+              //GameManager.GetComponent<GameManager>().AddTomato();
         }
     }
     //=====================================================================================================

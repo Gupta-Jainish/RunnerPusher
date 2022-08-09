@@ -1,28 +1,42 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 public class PositionManager : MonoBehaviour
 {
-    int mod;
     //=====================================================================================================
     // Initializations
     //=====================================================================================================
-    [SerializeField] GameObject[] PositionList;
-    [SerializeField] float GapBetween = 0;
-    [SerializeField] float RightGap = 0;
+    [SerializeField] List<GameObject> Live_BodyList = new List<GameObject>();
+    [SerializeField] List<GameObject> Sec_BodyList = new List<GameObject>();
+    [SerializeField] GameObject BodyPrefab;
+   // [SerializeField] float GapBetween = 0;
+   // [SerializeField] float RightGap = 0;
 
-    int i = 0;
-
-    bool up = false;
-
+    float countup = 0;
     //=====================================================================================================
+
+    private void Start()
+    {
+        AddBodyParts();
+        AddBodyParts();
+    }
 
     //=====================================================================================================
     // Fixed Call In Every Devices
     //=====================================================================================================
+
     void FixedUpdate()
     {
-        PosiManager();
-        Rotation();
+        Movement();
+        ManageSnakeBody();
+
+        if (Live_BodyList.Count > 0)
+        {
+            if (!Live_BodyList[0].GetComponent<PlayerMovement>())
+            {
+                Live_BodyList[0].AddComponent<PlayerMovement>();
+            }
+        }
+        
 
     }
     //=====================================================================================================
@@ -30,122 +44,91 @@ public class PositionManager : MonoBehaviour
     //=====================================================================================================
     // Manages Positions
     //=====================================================================================================
-    public void PosiManager()
+    void ManageSnakeBody()
     {
-        PositionList = GameObject.FindGameObjectsWithTag("Player");
-
-        for (i = 1; i < PositionList.Length; i++)
+        if (Sec_BodyList.Count > 0)
         {
-            mod = i % 3;
-
-            switch (mod)
+            CreateBodyParts();
+        }
+        for (int i = 0; i < Live_BodyList.Count; i++)
+        {
+            if (Live_BodyList[i] == null)
             {
+                Live_BodyList.RemoveAt(i);
 
-                case 0:
-                    {
-                        if (up == true)
-                        {
-                            for (int j = 0;j<1;j++)
-                            { 
-                                PositionList[j *3].transform.position = PositionList[j].transform.position;
-                                PositionList[j].transform.position += new Vector3(0, 1, 0);
-                                up = false;
-                            }
-                        }
+                i--;
+            }
+        }
+        if (Live_BodyList.Count == 0)
+        {
+            Destroy(this);
+        }
+    }
 
-                        PositionList[i].transform.position = PositionList[i - 1].transform.position + new Vector3(-RightGap,0,-GapBetween);
-                        break;
-                    }
+    public void CreateBodyParts()
+    {
+        if (Live_BodyList.Count == 0)
+        {
+            GameObject temp1 = Instantiate(Sec_BodyList[0], transform.position, transform.rotation, transform);
 
-                case 1:
-                    {
-                        PositionList[i].transform.position = PositionList[i - 1].transform.position + new Vector3(-RightGap, 0, 0);
-                        break;
-                    }
+            if (!temp1.GetComponent<MarkerManager>())
+            {
+                temp1.AddComponent<MarkerManager>();
+            }
+            if (!temp1.GetComponent<Rigidbody>())
+            {
+                temp1.AddComponent<Rigidbody>();
+            }
+            Live_BodyList.Add(temp1);
+            Sec_BodyList.RemoveAt(0);
+        }
 
-                case 2:
-                    {
-                        PositionList[i].transform.position = PositionList[i - 2].transform.position + new Vector3(RightGap,0,0);
-                        break;
-                    }
+        MarkerManager markM = Live_BodyList[Live_BodyList.Count - 1].GetComponent<MarkerManager>();
 
-                /*case 0:
-                    {
-                        if (i == 1)
-                        {
-                            PositionList[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                        }
+        if (countup == 0)
+        {
+            markM.ClearMarkerList();
+        }
+        countup += Time.deltaTime;
 
-                        if (i == 2)
-                        {
-                            PositionList[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                        }
+        GameObject temp = Instantiate(Sec_BodyList[0], markM.markerList[0].position, markM.markerList[0].rotation, transform);
 
-                        if (i < 1)
-                        {
-                            PositionList[i].transform.position = PositionList[i - 1].transform.position;
-                        }
+        if (!temp.GetComponent<MarkerManager>())
+        {
+            temp.AddComponent<MarkerManager>();
+        }
+        if (!temp.GetComponent<Rigidbody>())
+        {
+            temp.AddComponent<Rigidbody>();
+        }
+        Live_BodyList.Add(temp);
+        Sec_BodyList.RemoveAt(0);
+        temp.GetComponent<MarkerManager>().ClearMarkerList();
+        countup = 0;
+    }
 
-                        if (i > 1)
-                        {
-                            if (i > 3)
-                            {
-                                PositionList[i].transform.position = PositionList[i - 3].transform.position + new Vector3(0, 0, -GapBetween);
-                            }
-                            PositionList[i].transform.position = PositionList[i - 1].transform.position + new Vector3(-RightGap, 0, -GapBetween);
-                            Vector3 point = PositionList[0].transform.position - PositionList[i].transform.position;
-                            PositionList[i].transform.LookAt(point);
-                        }
-                        break;
-                    }
+    public void AddBodyParts()
+    {
+        Sec_BodyList.Add(BodyPrefab);
+    }
 
-                case 1:
-                    {
-                        if (i > 3)
-                        {
-                            PositionList[i].transform.position = PositionList[i - 3].transform.position + new Vector3(0, 0, -GapBetween);
-
-                        }
-                        else
-                        {
-                            PositionList[i].transform.position = PositionList[i - 1].transform.position - new Vector3(RightGap, 0, 0);
-                        }
-                        Vector3 point = PositionList[0].transform.position - PositionList[i].transform.position;
-                        PositionList[i].transform.LookAt(point);
-                        break;
-                    }
-
-                case 2:
-                    {
-                        if (i > 3)
-                        {
-                            PositionList[i].transform.position = PositionList[i - 3].transform.position + new Vector3(0, 0, -GapBetween);
-                        }
-                        else
-                        {
-                            PositionList[i].transform.position = PositionList[i - 2].transform.position - new Vector3(-RightGap, 0, 0);
-                        }
-                        Vector3 point = PositionList[0].transform.position - PositionList[i].transform.position;
-                        PositionList[i].transform.LookAt(point);
-                        break;
-                    }*/
-
-
+    public void Movement()
+    {
+        if (Live_BodyList.Count > 1)
+        {
+            for (int i = 1; i < Live_BodyList.Count; i++)
+            {
+                if (i>=1)
+                {
+                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(0,0,1);
+                    //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                    Live_BodyList[i].transform.LookAt(point);
+                    markM.markerList.RemoveAt(0);
+                }
             }
         }
     }
     //=====================================================================================================
-
-    public void Rotation()
-    {
-        for (int i=0; i<PositionList.Length; i++)
-        {
-        PositionList[i].transform.rotation = new Quaternion(0, 0, 0, 0);
-        }
-    }
-
-    public void Up()
-    {
-       up = true;
-    }
 }

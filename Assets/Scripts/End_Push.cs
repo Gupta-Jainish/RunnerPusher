@@ -11,8 +11,7 @@ public class End_Push : MonoBehaviour
         if (End == true)
         {
             if (other.gameObject.tag == "Player")
-            {
-                GameManager.GetComponent<PositionManager>().Up();
+            { 
                 End = false;
             }
         }

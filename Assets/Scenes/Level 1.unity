@@ -1286,7 +1286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f721fee3f6990d4f871590f51194270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositionList: []
+  Live_BodyList: []
+  Sec_BodyList: []
+  BodyPrefab: {fileID: 2170642874147011146, guid: 374db12b801d6b445835bc4d13014750, type: 3}
   GapBetween: 1
   RightGap: 1
 --- !u!4 &1126565377 stripped
