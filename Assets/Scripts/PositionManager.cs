@@ -182,8 +182,6 @@ public class PositionManager : MonoBehaviour
         Bodycount = Live_BodyList.Count;
         if (Bodycount > 3)
         {
-            
-
             ModFinal = (Bodycount - 1) % 3;
 
             Debug.Log(ModFinal);

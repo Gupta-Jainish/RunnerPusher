@@ -76,9 +76,6 @@ public class PlayerMovement : MonoBehaviour
                     transform.position += transform.right * TouchRightVal * Time.deltaTime / 4;
                 }
             }
-
-            
-
         }
     }
     //=====================================================================================================

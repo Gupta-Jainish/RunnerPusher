@@ -6,7 +6,6 @@ public class Trigger_Player : MonoBehaviour
     // Refrence To GameManager Object For Refrencing To GameManager Script
     //=====================================================================================================
     public GameObject GameManager;
-
     bool collectibleOnetime = true;
     //=====================================================================================================
 
@@ -25,7 +24,6 @@ public class Trigger_Player : MonoBehaviour
 
                 collectibleOnetime = false;
             }
-            
         }
     }
     //=====================================================================================================
