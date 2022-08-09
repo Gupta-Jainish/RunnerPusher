@@ -1,178 +1,175 @@
+using System.Collections.Generic;
 using UnityEngine;
-
 public class PositionManager : MonoBehaviour
 {
-    int mod;
     //=====================================================================================================
     // Initializations
     //=====================================================================================================
-    [SerializeField] GameObject[] PositionList;
-    [SerializeField] float GapBetween = 2;
-    [SerializeField] float RightGap = 2;
-    bool up = false;
+    [SerializeField] List<GameObject> Live_BodyList = new List<GameObject>();
+    [SerializeField] List<GameObject> Sec_BodyList = new List<GameObject>();
+    [SerializeField] GameObject BodyPrefab;
+    [SerializeField] float RightGap = 0;
+    int counter = 1;
+    int mod;
 
+    float countup = 0;
     //=====================================================================================================
+
+    private void Start()
+    {
+        AddParts();
+        AddParts();
+    }
 
     //=====================================================================================================
     // Fixed Call In Every Devices
     //=====================================================================================================
+
     void FixedUpdate()
     {
-        PosiManager();
+        ManageBody();
+        Movement();
     }
     //=====================================================================================================
 
     //=====================================================================================================
     // Manages Positions
     //=====================================================================================================
-    public void PosiManager()
+    void ManageBody()
     {
-        PositionList = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 1; i < PositionList.Length; i++)
+        if (Sec_BodyList.Count > 0)
         {
-            if (up == false)
+            CreateBodyParts();
+        }
+        for (int i = 0; i < Live_BodyList.Count; i++)
+        {
+            if (Live_BodyList[i] == null)
             {
-                mod = i % 3;
+                Live_BodyList.RemoveAt(i);
 
-                switch (mod)
+                i--;
+            }
+        }
+        if (Live_BodyList.Count == 0)
+        {
+            Destroy(this);
+        }
+    }
+
+    public void CreateBodyParts()
+    {
+        if (Live_BodyList.Count == 0)
+        {
+            GameObject temp1 = Instantiate(Sec_BodyList[0], transform.position, transform.rotation, transform);
+
+            if (!temp1.GetComponent<MarkerManager>())
+            {
+                temp1.AddComponent<MarkerManager>();
+            }
+            if (!temp1.GetComponent<Rigidbody>())
+            {
+                temp1.AddComponent<Rigidbody>();
+            }
+            Live_BodyList.Add(temp1);
+            Sec_BodyList.RemoveAt(0);
+        }
+
+        MarkerManager markM = Live_BodyList[Live_BodyList.Count - 1].GetComponent<MarkerManager>();
+
+        if (countup == 0)
+        {
+            markM.ClearMarkerList();
+        }
+        countup += Time.deltaTime;
+        GameObject temp = Instantiate(Sec_BodyList[0], markM.markerList[0].position, markM.markerList[0].rotation, transform);
+        if (!temp.GetComponent<MarkerManager>())
+        {
+            temp.AddComponent<MarkerManager>();
+        }
+        if (!temp.GetComponent<Rigidbody>())
+        {
+            temp.AddComponent<Rigidbody>();
+        }
+        Live_BodyList.Add(temp);
+        Sec_BodyList.RemoveAt(0);
+        temp.GetComponent<MarkerManager>().ClearMarkerList();
+        countup = 0;
+
+    }
+
+    public void AddParts()
+    {
+        Sec_BodyList.Add(BodyPrefab);
+    }
+
+    public void Movement()
+    {
+
+        if (Live_BodyList.Count > 0)
+        {
+            if (!Live_BodyList[0].GetComponent<PlayerMovement>())
+            {
+                Live_BodyList[0].AddComponent<PlayerMovement>();
+            }
+        }
+
+
+        if (Live_BodyList.Count > 1)
+        {
+            for (int i = 1; i < Live_BodyList.Count; i++)
+            {
+
+                if (i > 1 || i == 1)
                 {
-                    //=====================================================================================================
-                    // For Center Pics
-                    //=====================================================================================================
-                    case 0:
+                    RotationLock();
+                        mod = i % 3;
+                        switch (mod)
                         {
-                            // Cheacks If It Is First Pics Or Not
-                            if (i == 0)
-                            {
-                                PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(0, 0, GapBetween);
-                                PositionList[i].gameObject.transform.rotation = new Quaternion(0, 0, 0, 1);
-                                Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                                PositionList[i].transform.LookAt(point);
-
-                            }
-                            else
-                            {
-                                PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, 0, GapBetween);
-                                PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                                Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                                PositionList[i].transform.LookAt(point);
-                            }
-                            break;
-
+                            case 0:
+                                {
+                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 1);
+                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    markM.markerList.RemoveAt(0);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
+                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    markM.markerList.RemoveAt(0);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
+                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    markM.markerList.RemoveAt(0);
+                                    break;
+                                }
                         }
-                    //=====================================================================================================    
-
-                    //=====================================================================================================
-                    // For Left Pics
-                    //=====================================================================================================
-                    case 1:
-                        {
-                            PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, 0, 0);
-                            PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                            Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                            PositionList[i].transform.LookAt(point);
-                            break;
-                        }
-                    //=====================================================================================================    
-
-                    //=====================================================================================================
-                    // For Right Pics
-                    //=====================================================================================================
-                    case 2:
-                        {
-                            PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(2 * (RightGap), 0, 0);
-                            PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                            Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                            PositionList[i].transform.LookAt(point);
-                            break;
-                        }
-                        //=====================================================================================================
-
                 }
             }
-            if (up == true)
+        }
+    }
+
+    public void RotationLock()
+    {
+        if (Live_BodyList.Count >= 1)
+        {
+            for (int i = 0; i < Live_BodyList.Count; i++)
             {
-                mod = i % 3;
-
-                switch (mod)
-                {
-                    //=====================================================================================================
-                    // For Center Pics
-                    //=====================================================================================================
-                    case 0:
-                        {
-                            // Cheacks If It Is First Pics Or Not
-                            if (i == 0)
-                            {
-                                PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(0, 0, GapBetween);
-                                PositionList[i].gameObject.transform.rotation = new Quaternion(0, 0, 0, 1);
-                                Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                                PositionList[i].transform.LookAt(point);
-                                PositionList[i].GetComponent<Rigidbody>().useGravity = false;
-
-
-                            }
-                            else
-                            {
-                                PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, -2,0);
-                                PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                                Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                                PositionList[i].transform.LookAt(point);
-                                PositionList[i].GetComponent<Rigidbody>().useGravity = false;
-                            }
-                            break;
-
-                        }
-                    //=====================================================================================================    
-
-                    //=====================================================================================================
-                    // For Left Pics
-                    //=====================================================================================================
-                    case 1:
-                        {
-                            PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(-RightGap, 0, 0);
-                            PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                            Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                            PositionList[i].transform.LookAt(point);
-                            PositionList[i].GetComponent<Rigidbody>().useGravity = false;
-
-                            break;
-                        }
-                    //=====================================================================================================    
-
-                    //=====================================================================================================
-                    // For Right Pics
-                    //=====================================================================================================
-                    case 2:
-                        {
-                            PositionList[i].gameObject.transform.position = PositionList[i - 1].gameObject.transform.position - new Vector3(2 * (RightGap), 0, 0);
-                            PositionList[i].gameObject.transform.rotation = PositionList[i - 1].gameObject.transform.rotation;
-                            Vector3 point = PositionList[i].transform.position - PositionList[i - 1].transform.position;
-                            PositionList[i].transform.LookAt(point);
-                            PositionList[i].GetComponent<Rigidbody>().useGravity = false;
-
-                            break;
-                        }
-                        //=====================================================================================================
-
-                }
+                Live_BodyList[i].transform.rotation = new Quaternion(0, 0, 0, 0);
             }
-            
-
-            //=====================================================================================================
-            // Sets Rotations Uniform And Front Towards Z Axis Of All The Pics
-            //=====================================================================================================
-            PositionList[i].transform.rotation = new Quaternion(0, 0, 0, 0);
-            //=====================================================================================================
-
-
         }
     }
     //=====================================================================================================
-
-
-    public void Up()
-    {
-        up = true;
-    }
 }
