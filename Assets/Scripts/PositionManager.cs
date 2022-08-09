@@ -122,10 +122,7 @@ public class PositionManager : MonoBehaviour
                 if (i > 1 || i == 1)
                 {
                     RotationLock();
-
-                    if (counter >= 1)
-                    {
-                        mod = counter % 3;
+                        mod = i % 3;
                         switch (mod)
                         {
                             case 0:
@@ -151,17 +148,14 @@ public class PositionManager : MonoBehaviour
                             case 2:
                                 {
                                     MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(2, 0, 0);
+                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
                                     Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                     Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
                                     Live_BodyList[i].transform.LookAt(point);
                                     markM.markerList.RemoveAt(0);
                                     break;
                                 }
-
                         }
-                    }
-                    counter++;
                 }
             }
         }
