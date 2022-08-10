@@ -21,18 +21,18 @@ public class Interactions : MonoBehaviour
                 if (other.transform.position.x >= 0)
                 {
                     Debug.Log("Player Is At Right");
-                    Right();
+                    PlayerIsAtRight();
                 }
                 else
                 {
                     Debug.Log("Player Is At Left");
-                    Left();
+                    PlayerIsAtLeft();
                 }
             }
         }
     }
 
-    public void Right()
+    public void PlayerIsAtRight()
     {
         int j = GameManager.GetComponent<PositionManager>().PlayerCount();
         Debug.Log(j);
@@ -47,7 +47,7 @@ public class Interactions : MonoBehaviour
         }
     }
     
-    public void Left()
+    public void PlayerIsAtLeft()
     {
         int j = GameManager.GetComponent<PositionManager>().PlayerCount();
         Debug.Log(j);
