@@ -191,7 +191,7 @@ public class PositionManager : MonoBehaviour
                     {
                         for (int i = Bodycount - 1; i > Bodycount - 4; i--)
                         {
-                            Live_BodyList.RemoveAt(i);
+                            FinisherRemove(i);
                         }
                         break;
                     }
@@ -199,7 +199,7 @@ public class PositionManager : MonoBehaviour
                     {
                         for (int i = Bodycount - 1; i > Bodycount - 2; i--)
                         {
-                            Live_BodyList.RemoveAt(i);
+                            FinisherRemove(i);
                         }
                         break;
                     }
@@ -207,7 +207,7 @@ public class PositionManager : MonoBehaviour
                     {
                         for (int i = Bodycount - 1; i > Bodycount - 3; i--)
                         {
-                            Live_BodyList.RemoveAt(i);
+                            FinisherRemove(i);
                         }
                         break;
                     }
@@ -216,10 +216,23 @@ public class PositionManager : MonoBehaviour
 
         if (Bodycount <= 3)
         {
+            Debug.Log("Game Over Start");
+            Invoke("GameOver", 0.2f);
             
-            Debug.Log("Body <= 3");
         }
         
+    }
+
+    public void FinisherRemove(int i)
+    {
+        Live_BodyList.RemoveAt(i);
+        //Live_BodyList[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+        Time.timeScale = 0;
     }
 
 }
