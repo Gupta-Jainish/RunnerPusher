@@ -226,7 +226,7 @@ public class PositionManager : MonoBehaviour
     public void FinisherRemove(int i)
     {
         Live_BodyList.RemoveAt(i);
-        //Live_BodyList[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Live_BodyList[i].GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public void GameOver()
