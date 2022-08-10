@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float TouchRightVal;
     [SerializeField] float TouchRightBoundry = 3.4f;
                      Rigidbody rb;
+    public bool RightVal;
     //=====================================================================================================
 
     //=====================================================================================================
@@ -92,4 +93,16 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(SteerVal, 0, 0);
     }
     //=====================================================================================================
+
+    public void right()
+    {
+        if (rb.transform.position.x >2.5)
+        {
+            RightVal = true;
+        }
+        else
+        {
+            RightVal = false;
+        }
+    }
 }

@@ -234,4 +234,9 @@ public class PositionManager : MonoBehaviour
         Debug.Log("Game Over");
         Time.timeScale = 0;
     }
+
+    public int PlayerCount()
+    { 
+        return Live_BodyList.Count;
+    }
 }
