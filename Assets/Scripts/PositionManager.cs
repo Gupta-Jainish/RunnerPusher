@@ -10,7 +10,7 @@ public class PositionManager : MonoBehaviour
     [SerializeField] GameObject BodyPrefab;
     int mod;
     int Bodycount;
-    bool posibug = false;
+    public bool posibug = false;
     int ModFinal;
 
     float countup = 0;
@@ -28,6 +28,11 @@ public class PositionManager : MonoBehaviour
         {
             AddParts();
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Live_BodyList.RemoveRange(0,Live_BodyList.Count); 
+        }
+
     }
     //=====================================================================================================
     // Fixed Call In Every Devices
