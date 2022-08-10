@@ -24,8 +24,6 @@ public class BackSupportScript : MonoBehaviour
             
     }
 
-
-
     public void pushBool()
     {
         PushBool = true;    

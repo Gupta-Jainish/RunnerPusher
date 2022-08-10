@@ -16,7 +16,6 @@ public class Destroy : MonoBehaviour
                 Destroy(gameObject);
                 onetime = false;
             }
-            
         }
     }
     //=====================================================================================================

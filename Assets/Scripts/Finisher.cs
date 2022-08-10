@@ -12,7 +12,6 @@ public class Finisher : MonoBehaviour
             {
                 PositionManagerScript.GetComponent<PositionManager>().Finisher();
                 onetime = false;
-                
             }
         }
     }

@@ -13,7 +13,6 @@ public class Interactions : MonoBehaviour
 
     [SerializeField] GameObject BackSupport;
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -43,7 +42,6 @@ public class Interactions : MonoBehaviour
 
                     }SingleRun = false;
                 }
-                
             }
         }
     }
