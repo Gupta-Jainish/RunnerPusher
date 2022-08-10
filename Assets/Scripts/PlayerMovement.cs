@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float TouchRightBoundry = 3.4f;
                      Rigidbody rb;
     public bool RightVal;
+    public bool Forward = true;
     //=====================================================================================================
 
     //=====================================================================================================
@@ -60,7 +61,11 @@ public class PlayerMovement : MonoBehaviour
     //=====================================================================================================
     public void PlayerMovementUpdate()
     {
-        rb.velocity = transform.forward * Speed * Time.deltaTime;
+        if (Forward)
+        {
+            rb.velocity = transform.forward * Speed * Time.deltaTime;
+        }
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -89,11 +94,11 @@ public class PlayerMovement : MonoBehaviour
     //=====================================================================================================
     public void Left()
     {
-        rb.AddForce(-SteerVal, 0, 0);
+        rb.AddForce(-SteerVal * Time.deltaTime, 0, 0);
     }
     public void Right()
     {
-        rb.AddForce(SteerVal, 0, 0);
+        rb.AddForce(SteerVal * Time.deltaTime, 0, 0);
     }
     //=====================================================================================================
 
@@ -107,5 +112,10 @@ public class PlayerMovement : MonoBehaviour
         {
             RightVal = false;
         }
+    }
+
+    public void ForwaredMovementStop()
+    {
+        Speed = 0;
     }
 }

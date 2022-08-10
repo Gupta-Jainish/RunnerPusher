@@ -8,6 +8,11 @@ public class Interactions : MonoBehaviour
 
     [SerializeField] int RightWeight;
     [SerializeField] int LeftWeight;    
+    [SerializeField] float ForceBox = 10;
+    public bool OtherMovementStop = false;
+    public bool SingleRun = true;
+
+    [SerializeField] GameObject BackSupport;
 
 
     private void OnTriggerEnter(Collider other)
@@ -17,17 +22,29 @@ public class Interactions : MonoBehaviour
             if (other.GetComponent<PlayerMovement>())
             {
                 Debug.Log("Triggered With Player");
+                if (SingleRun)
+                {
+                    if (other.transform.position.x >= 0)
+                    {
+                        Debug.Log("Player Is At Right");
+                        PlayerIsAtRight();
+                        if (OtherMovementStop)
+                        {
+                            other.gameObject.GetComponent<PlayerMovement>().ForwaredMovementStop();
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Player Is At Left");
+                        PlayerIsAtLeft();
+                        if (OtherMovementStop)
+                        {
+                            other.gameObject.GetComponent<PlayerMovement>().ForwaredMovementStop();
+                        }
 
-                if (other.transform.position.x >= 0)
-                {
-                    Debug.Log("Player Is At Right");
-                    PlayerIsAtRight();
+                    }SingleRun = false;
                 }
-                else
-                {
-                    Debug.Log("Player Is At Left");
-                    PlayerIsAtLeft();
-                }
+                
             }
         }
     }
@@ -40,10 +57,13 @@ public class Interactions : MonoBehaviour
         if (RightWeight <= j)
         {
             Debug.Log("Pass Through");
+            BackSupport.GetComponent<BackSupportScript>().BackSupportTrigger();
         }
         else
         {
             Debug.Log("Game Over");
+            OtherMovementStop = true;
+            BackSupport.GetComponent<BackSupportScript>().pushBool();
         }
     }
     
@@ -55,10 +75,13 @@ public class Interactions : MonoBehaviour
         if (LeftWeight <= j)
         {
             Debug.Log("Pass Through");
+            BackSupport.GetComponent<BackSupportScript>().BackSupportTrigger();
         }
         else
         {
             Debug.Log("Game Over");
+            OtherMovementStop = true;
+            BackSupport.GetComponent<BackSupportScript>().pushBool();
         }
     }
 }
