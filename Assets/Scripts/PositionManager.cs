@@ -22,6 +22,13 @@ public class PositionManager : MonoBehaviour
         AddParts();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            AddParts();
+        }
+    }
     //=====================================================================================================
     // Fixed Call In Every Devices
     //=====================================================================================================
@@ -30,6 +37,8 @@ public class PositionManager : MonoBehaviour
     {
         ManageBody();
         Movement();
+
+        
     }
     //=====================================================================================================
 
