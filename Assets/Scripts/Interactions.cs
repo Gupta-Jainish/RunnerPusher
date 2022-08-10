@@ -6,6 +6,10 @@ public class Interactions : MonoBehaviour
 {
     [SerializeField] GameObject GameManager;
 
+    [SerializeField] int RightWeight;
+    [SerializeField] int LeftWeight;    
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -32,11 +36,29 @@ public class Interactions : MonoBehaviour
     {
         int j = GameManager.GetComponent<PositionManager>().PlayerCount();
         Debug.Log(j);
+
+        if (RightWeight <= j)
+        {
+            Debug.Log("Pass Through");
+        }
+        else
+        {
+            Debug.Log("Game Over");
+        }
     }
     
     public void Left()
     {
         int j = GameManager.GetComponent<PositionManager>().PlayerCount();
         Debug.Log(j);
+
+        if (LeftWeight <= j)
+        {
+            Debug.Log("Pass Through");
+        }
+        else
+        {
+            Debug.Log("Game Over");
+        }
     }
 }

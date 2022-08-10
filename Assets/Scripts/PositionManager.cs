@@ -10,7 +10,7 @@ public class PositionManager : MonoBehaviour
     [SerializeField] GameObject BodyPrefab;
     int mod;
     int Bodycount;
-
+    bool posibug = false;
     int ModFinal;
 
     float countup = 0;
@@ -120,13 +120,14 @@ public class PositionManager : MonoBehaviour
 
         if (Live_BodyList.Count > 1)
         {
+
             for (int i = 1; i < Live_BodyList.Count; i++)
             {
-
-                if (i > 1|| i == 1)
+                RotationLock();
+                mod = i % 3;
+                if (i > 0)
                 {
-                    RotationLock();
-                    mod = i % 3;
+                    
                     switch (mod)
                     {
                         case 0:
