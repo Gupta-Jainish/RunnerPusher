@@ -8,7 +8,6 @@ public class Interactions : MonoBehaviour
 
     [SerializeField] int RightWeight;
     [SerializeField] int LeftWeight;    
-    [SerializeField] float ForceBox = 10;
     public bool OtherMovementStop = false;
     public bool SingleRun = true;
 

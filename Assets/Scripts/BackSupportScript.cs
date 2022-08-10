@@ -18,6 +18,8 @@ public class BackSupportScript : MonoBehaviour
         if (PushBool)
         {
             Push();
+
+            Invoke("GameOver", 3f);
         }
             
     }
@@ -35,5 +37,10 @@ public class BackSupportScript : MonoBehaviour
 
         rb.velocity = new Vector3(0,0,-10);
 
+    }
+    
+    public void GameOver()
+    {
+        Time.timeScale = 0;
     }
 }
