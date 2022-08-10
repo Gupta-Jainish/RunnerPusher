@@ -234,5 +234,4 @@ public class PositionManager : MonoBehaviour
         Debug.Log("Game Over");
         Time.timeScale = 0;
     }
-
 }
