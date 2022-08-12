@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
+    bool onetime = true;
     //=====================================================================================================
     // Triggers When Player Colides With Enemy Object
     //=====================================================================================================
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (onetime)
         {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            if (collision.gameObject.tag == "Enemy")
+            {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+                onetime = false;
+            }
         }
     }
     //=====================================================================================================

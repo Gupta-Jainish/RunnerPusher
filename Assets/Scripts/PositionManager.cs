@@ -8,10 +8,12 @@ public class PositionManager : MonoBehaviour
     [SerializeField] List<GameObject> Live_BodyList = new List<GameObject>();
     [SerializeField] List<GameObject> Sec_BodyList = new List<GameObject>();
     [SerializeField] GameObject BodyPrefab;
-    [SerializeField] float RightGap = 0;
-    int counter = 1;
+    public float journeyTime = 1.0f;
+    private float startTime;
     int mod;
-
+    int Bodycount;
+    public bool posibug = false;
+    int ModFinal;
     float countup = 0;
     //=====================================================================================================
 
@@ -21,14 +23,26 @@ public class PositionManager : MonoBehaviour
         AddParts();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            AddParts();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Live_BodyList.RemoveRange(0,Live_BodyList.Count); 
+        }
+    }
+
     //=====================================================================================================
     // Fixed Call In Every Devices
     //=====================================================================================================
-
     void FixedUpdate()
     {
         ManageBody();
         Movement();
+        RotationLock();
     }
     //=====================================================================================================
 
@@ -55,6 +69,7 @@ public class PositionManager : MonoBehaviour
             Destroy(this);
         }
     }
+    //=======================================================================================================
 
     public void CreateBodyParts()
     {
@@ -81,7 +96,9 @@ public class PositionManager : MonoBehaviour
             markM.ClearMarkerList();
         }
         countup += Time.deltaTime;
+
         GameObject temp = Instantiate(Sec_BodyList[0], markM.markerList[0].position, markM.markerList[0].rotation, transform);
+
         if (!temp.GetComponent<MarkerManager>())
         {
             temp.AddComponent<MarkerManager>();
@@ -116,46 +133,73 @@ public class PositionManager : MonoBehaviour
 
         if (Live_BodyList.Count > 1)
         {
+
             for (int i = 1; i < Live_BodyList.Count; i++)
             {
-
-                if (i > 1 || i == 1)
+                RotationLock();
+                mod = i % 3;
+                if (i > 0)
                 {
-                    RotationLock();
-                        mod = i % 3;
-                        switch (mod)
-                        {
-                            case 0:
+                    switch (mod)
+                    {
+                        case 0:
+                            {
+                                MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 1), 2);
+
+                                // Old Posioning Code
+                                //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 1);
+                                //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                Live_BodyList[i].transform.LookAt(point);
+                                markM.markerList.RemoveAt(0);
+                                break;
+                            }
+                        case 1:
+                            {
+                                if (i == 1)
+                                {
+                                    MarkerManager markM = Live_BodyList[0].GetComponent<MarkerManager>();
+                                    Live_BodyList[i].transform.position = Live_BodyList[0].transform.position - new Vector3(1,0,0);
+
+                                    // Old Posioning Code
+                                    //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
+                                    //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Vector3 point = Live_BodyList[1].transform.position - Live_BodyList[0].transform.position;
+                                    Live_BodyList[i].transform.LookAt(point);
+                                    
+                                }
+                                if (i > 1)
                                 {
                                     MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 1);
-                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                    Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 0), 2);
+
+                                    // Old Posioning Code
+                                    //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
+                                    //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                     Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
                                     Live_BodyList[i].transform.LookAt(point);
                                     markM.markerList.RemoveAt(0);
-                                    break;
+                                    
                                 }
-                            case 1:
-                                {
-                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
-                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
-                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
-                                    Live_BodyList[i].transform.LookAt(point);
-                                    markM.markerList.RemoveAt(0);
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                                    Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
-                                    Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
-                                    Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
-                                    Live_BodyList[i].transform.LookAt(point);
-                                    markM.markerList.RemoveAt(0);
-                                    break;
-                                }
-                        }
+                                break;
+
+
+                            }
+                        case 2:
+                            {
+                                MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
+                                Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(-2, 0, 0), 2);
+
+                                // Old Posioning Code
+                                // Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
+                                // Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
+                                Live_BodyList[i].transform.LookAt(point);
+                                markM.markerList.RemoveAt(0);
+                                break;
+                            }
+                    }
                 }
             }
         }
@@ -171,5 +215,67 @@ public class PositionManager : MonoBehaviour
             }
         }
     }
-    //=====================================================================================================
+
+    public void Finisher()
+    {
+        Bodycount = Live_BodyList.Count;
+        if (Bodycount > 3)
+        {
+            ModFinal = (Bodycount - 1) % 3;
+
+            Debug.Log(ModFinal);
+            switch (ModFinal)
+            {
+                case 0:
+                    {
+                        for (int i = Bodycount - 1; i > Bodycount - 4; i--)
+                        {
+                            FinisherRemove(i);
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        for (int i = Bodycount - 1; i > Bodycount - 2; i--)
+                        {
+                            FinisherRemove(i);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = Bodycount - 1; i > Bodycount - 3; i--)
+                        {
+                            FinisherRemove(i);
+                        }
+                        break;
+                    }
+            }
+        }
+
+        if (Bodycount <= 3)
+        {
+            Debug.Log("Game Over Start");
+            Invoke("GameOver", 0.2f);
+            
+        }
+        
+    }
+
+    public void FinisherRemove(int i)
+    {
+        Live_BodyList[i].GetComponent<Rigidbody>().isKinematic = true;
+        Live_BodyList.RemoveAt(i);
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+        Time.timeScale = 0;
+    }
+
+    public int PlayerCount()
+    { 
+        return Live_BodyList.Count;
+    }
 }
