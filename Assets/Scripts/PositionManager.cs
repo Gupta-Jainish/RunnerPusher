@@ -140,14 +140,12 @@ public class PositionManager : MonoBehaviour
                 mod = i % 3;
                 if (i > 0)
                 {
-                    
                     switch (mod)
                     {
                         case 0:
                             {
                                 MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                               float fracComplete = (Time.time - startTime) / journeyTime;
-                               Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 1), 2);
+                                Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 1), 2);
                                 //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 1);
                                 //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                 Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
@@ -158,8 +156,7 @@ public class PositionManager : MonoBehaviour
                         case 1:
                             {
                                 MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                               float fracComplete = (Time.time - startTime) / journeyTime;
-                               Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 0), 2);
+                                Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 0), 2);
                                 //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
                                 //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                 Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
@@ -170,10 +167,9 @@ public class PositionManager : MonoBehaviour
                         case 2:
                             {
                                 MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
-                                float fracComplete = (Time.time - startTime) / journeyTime;
                                 Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(-2, 0, 0), 2);
-                               // Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
-                               // Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
+                                // Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
+                                // Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                 Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
                                 Live_BodyList[i].transform.LookAt(point);
                                 markM.markerList.RemoveAt(0);
@@ -195,7 +191,6 @@ public class PositionManager : MonoBehaviour
             }
         }
     }
-
 
     public void Finisher()
     {

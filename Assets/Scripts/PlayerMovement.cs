@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
         RigidIni();
         PlayerController();
         PlayerMovementUpdate();
-        
     }
     //=====================================================================================================
 
