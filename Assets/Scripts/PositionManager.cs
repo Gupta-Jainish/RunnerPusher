@@ -146,6 +146,8 @@ public class PositionManager : MonoBehaviour
                             {
                                 MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
                                 Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 1), 2);
+
+                                // Old Posioning Code
                                 //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 1);
                                 //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                 Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
@@ -159,6 +161,8 @@ public class PositionManager : MonoBehaviour
                                 {
                                     MarkerManager markM = Live_BodyList[0].GetComponent<MarkerManager>();
                                     Live_BodyList[i].transform.position = Live_BodyList[0].transform.position - new Vector3(1,0,0);
+
+                                    // Old Posioning Code
                                     //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
                                     //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                     Vector3 point = Live_BodyList[1].transform.position - Live_BodyList[0].transform.position;
@@ -169,6 +173,8 @@ public class PositionManager : MonoBehaviour
                                 {
                                     MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
                                     Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(1, 0, 0), 2);
+
+                                    // Old Posioning Code
                                     //Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(1, 0, 0);
                                     //Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                     Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
@@ -184,6 +190,8 @@ public class PositionManager : MonoBehaviour
                             {
                                 MarkerManager markM = Live_BodyList[i - 1].GetComponent<MarkerManager>();
                                 Live_BodyList[i].transform.position = Vector3.Slerp(Live_BodyList[1].transform.position, markM.markerList[0].position - new Vector3(-2, 0, 0), 2);
+
+                                // Old Posioning Code
                                 // Live_BodyList[i].transform.position = markM.markerList[0].position - new Vector3(-2, 0, 0);
                                 // Live_BodyList[i].transform.rotation = markM.markerList[0].rotation;
                                 Vector3 point = Live_BodyList[i].transform.position - Live_BodyList[i - 1].transform.position;
