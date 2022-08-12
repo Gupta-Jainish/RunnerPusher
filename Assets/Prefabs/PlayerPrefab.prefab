@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6877240077883947946}
   - component: {fileID: 7682502594260772556}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
