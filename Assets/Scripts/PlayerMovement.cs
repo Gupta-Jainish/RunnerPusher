@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PlayerMovement : MonoBehaviour
 {
     //=====================================================================================================
@@ -91,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
     //=====================================================================================================
     public void Left()
     {
-        rb.AddForce(-SteerVal * Time.deltaTime, 0, 0);
+        rb.AddForce(-SteerVal, 0, 0);
     }
     public void Right()
     {
-        rb.AddForce(SteerVal * Time.deltaTime, 0, 0);
+        rb.AddForce(SteerVal, 0, 0);
     }
     //=====================================================================================================
 
