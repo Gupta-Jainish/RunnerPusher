@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
     //=====================================================================================================
     // Initializations
     //=====================================================================================================
-    [SerializeField] float Speed = 500;
+    [SerializeField] float Speed = 800;
     [SerializeField] float SteerVal = 800;
     [SerializeField] float TouchRightVal;
     [SerializeField] float TouchRightBoundry = 3.4f;
@@ -70,14 +70,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (transform.position.x <TouchRightBoundry)
                 {
-                    transform.position += transform.right * TouchRightVal * Time.deltaTime / 4;
+                    transform.position += transform.right * TouchRightVal * Time.deltaTime / 3.5f;
                 }
             }
             if(TouchRightVal < 0)
             {
                 if (transform.position.x > -TouchRightBoundry)
                 {
-                    transform.position += transform.right * TouchRightVal * Time.deltaTime / 4;
+                    transform.position += transform.right * TouchRightVal * Time.deltaTime / 3.5f;
                 }
             }
         }
