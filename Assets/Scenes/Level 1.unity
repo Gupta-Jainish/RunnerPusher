@@ -513,6 +513,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7975221905473638594, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905473638594, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905473638594, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905473638594, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905473638594, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905473638594, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -304
+      objectReference: {fileID: 0}
     - target: {fileID: 7975221905476342814, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -537,6 +561,34 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Canvas, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600385, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600385, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600386, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600386, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600386, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600386, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221905692600386, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7975221906294430489, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -548,6 +600,10 @@ PrefabInstance:
     - target: {fileID: 7975221906294430489, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Canvas, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975221906362844617, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7975221906891813056, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
       propertyPath: m_Pivot.x
