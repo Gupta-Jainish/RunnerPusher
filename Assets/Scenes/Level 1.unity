@@ -164,6 +164,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 572842724375059885, guid: e7f12c48244997f42a1376831113e6fe, type: 3}
   m_PrefabInstance: {fileID: 1148643276}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &86734174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7975221905513457995, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+  m_PrefabInstance: {fileID: 452941999}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &140904597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -922,6 +927,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ac466ac02991144e8a930db77593370, type: 3}
+--- !u!1 &705170869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7975221906294430491, guid: ddc8bde3797a52f409fdf421bbfdb901, type: 3}
+  m_PrefabInstance: {fileID: 452941999}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,9 +1464,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Startbtn: {fileID: 293434972}
+  Restartbtn: {fileID: 86734174}
+  NextLevelBtn: {fileID: 705170869}
   Score: {fileID: 1794617713}
   Level: {fileID: 1300878139}
   SceneNo: 0
+  MainScore: 0
 --- !u!224 &1111692777
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1501,6 +1514,10 @@ PrefabInstance:
     - target: {fileID: 4318256469510660970, guid: f02085eecae5a5c4c9411904e6ebe556, type: 3}
       propertyPath: m_Name
       value: Finisher (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318256469510660970, guid: f02085eecae5a5c4c9411904e6ebe556, type: 3}
+      propertyPath: m_TagString
+      value: Finish
       objectReference: {fileID: 0}
     - target: {fileID: 4318256469510660974, guid: f02085eecae5a5c4c9411904e6ebe556, type: 3}
       propertyPath: m_RootOrder

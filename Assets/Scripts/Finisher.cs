@@ -8,8 +8,16 @@ public class Finisher : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            
+
             if (onetime)
             {
+                if (gameObject.tag == "Finish")
+                {
+                    Time.timeScale = 0;
+                    PositionManagerScript.GetComponent<GameManager>().NextLevelIni();
+                }
+
                 PositionManagerScript.GetComponent<PositionManager>().Finisher();
                 PositionManagerScript.GetComponent<PositionManager>().WinBoolTrue();
                 onetime = false;

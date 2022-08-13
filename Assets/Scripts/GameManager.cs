@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
 
     public GameObject Startbtn;
+    public GameObject Restartbtn;
+    public GameObject NextLevelBtn;
+
+
     [SerializeField] TextMeshProUGUI Score;
     [SerializeField] TextMeshProUGUI Level;
 
@@ -46,10 +50,15 @@ public class GameManager : MonoBehaviour
             SceneNo++;
             SceneManager.LoadScene(SceneNo);
         }
-
         Startbtn.SetActive(false);
         Time.timeScale = 1;
     }
+
+    public void NextLevelIni()
+    {
+        NextLevelBtn.SetActive(true);
+    }
+
     public void Button_exit()
     {
         Application.Quit();
@@ -59,6 +68,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("GameManager: GameOver");
+        Restartbtn.SetActive(true);
+        
     }
 
     public void Win()

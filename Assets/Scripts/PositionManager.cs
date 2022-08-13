@@ -284,8 +284,11 @@ public class PositionManager : MonoBehaviour
 
     public void FinisherRemove(int i)
     {
-        Live_BodyList[i].GetComponent<Rigidbody>().isKinematic = true;
-        Live_BodyList.RemoveAt(i);
+        if (Live_BodyList.Count > 3)
+        {
+            Live_BodyList[i].GetComponent<Rigidbody>().isKinematic = true;
+            Live_BodyList.RemoveAt(i);
+        }
     }
 
     public void GameOver()
