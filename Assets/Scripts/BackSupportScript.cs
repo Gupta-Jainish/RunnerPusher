@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BackSupportScript : MonoBehaviour
 {
     Rigidbody rb;
     public bool PushBool;
+    [SerializeField] GameObject GameManager;
 
     public void BackSupportTrigger()
     {
         GetComponent<Collider>().enabled = false;
-
     }
 
     void Update()
@@ -18,7 +16,7 @@ public class BackSupportScript : MonoBehaviour
         if (PushBool)
         {
             Push();
-
+            
             Invoke("GameOver", 3f);
         }
             
@@ -40,5 +38,6 @@ public class BackSupportScript : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0;
+        GameManager.GetComponent<GameManager>().GameOver();
     }
 }

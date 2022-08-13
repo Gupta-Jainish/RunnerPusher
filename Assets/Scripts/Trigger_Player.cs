@@ -29,6 +29,7 @@ public class Trigger_Player : MonoBehaviour
                             // Fetching GameManager Scrit From GameManager Object
                             GameManager.GetComponent<PositionManager>().AddParts();
                         }
+                        GameManager.GetComponent<GameManager>().ScoreManager(1);
                         collectibleOnetime = false;
                         Debug.Log("+1");
 
@@ -45,10 +46,9 @@ public class Trigger_Player : MonoBehaviour
                             // Fetching GameManager Scrit From GameManager Object
                             GameManager.GetComponent<PositionManager>().AddParts();
                         }
+                        GameManager.GetComponent<GameManager>().ScoreManager(2);
                         collectibleOnetime = false;
                         Debug.Log("+2");
-
-
                     }
                 }
                 if (gameObject.tag == "+10")
@@ -62,6 +62,7 @@ public class Trigger_Player : MonoBehaviour
                             // Fetching GameManager Scrit From GameManager Object
                             GameManager.GetComponent<PositionManager>().AddParts();
                         }
+                        GameManager.GetComponent<GameManager>().ScoreManager(10);
                         collectibleOnetime = false;
                         Debug.Log("+10");
 
@@ -78,7 +79,9 @@ public class Trigger_Player : MonoBehaviour
                         {
                             // Fetching GameManager Scrit From GameManager Object
                             GameManager.GetComponent<PositionManager>().AddParts();
+                            
                         }
+                        GameManager.GetComponent<GameManager>().ScoreManager(20);
                         collectibleOnetime = false;
                         Debug.Log("+20");
 

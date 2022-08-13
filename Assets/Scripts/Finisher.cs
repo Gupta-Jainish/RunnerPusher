@@ -11,6 +11,7 @@ public class Finisher : MonoBehaviour
             if (onetime)
             {
                 PositionManagerScript.GetComponent<PositionManager>().Finisher();
+                PositionManagerScript.GetComponent<PositionManager>().WinBoolTrue();
                 onetime = false;
             }
         }

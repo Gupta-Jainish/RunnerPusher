@@ -15,6 +15,7 @@ public class PositionManager : MonoBehaviour
     public bool posibug = false;
     int ModFinal;
     float countup = 0;
+    bool Winbool = false;
     //=====================================================================================================
 
     private void Start()
@@ -203,6 +204,25 @@ public class PositionManager : MonoBehaviour
                 }
             }
         }
+
+
+        if (Winbool == false)
+        {
+            if (Live_BodyList.Count < 1)
+            {
+                gameObject.GetComponent<GameManager>().GameOver();
+            }
+
+        }
+        if (Winbool)
+        {
+            gameObject.GetComponent<GameManager>().Win();
+        }
+    }
+
+    public void WinBoolTrue()
+    {
+        Winbool = true;
     }
 
     public void RotationLock()
